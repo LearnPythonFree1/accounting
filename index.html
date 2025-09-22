@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibrahim Accounting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Ibrahim </h1>
+        <nav class="menu">
+            <button data-view="add">Add Item</button>
+            <button data-view="update">Update Price</button>
+            <button data-view="sale">Record Sale</button>
+            <button data-view="report">Monthly Report</button>
+            <button data-view="sales-report">Sales Report</button>
+            <button data-view="yearly">Yearly Summary</button>
+        </nav>
+    </header>
+
+    <main id="views">
+        <section id="view-add" class="view active">
+            <h2>Add Item</h2>
+            <form id="add-form">
+                <div class="field">
+                    <label for="add-name">Item Name</label>
+                    <input id="add-name" type="text" required placeholder="e.g. Sugar">
+                </div>
+                <div class="field">
+                    <label for="add-price">Price (per unit)</label>
+                    <input id="add-price" type="number" step="0.01" min="0" required placeholder="e.g. 4.50">
+                </div>
+                <div class="field">
+                    <label for="add-qty">Quantity</label>
+                    <input id="add-qty" type="number" step="1" min="1" required value="1">
+                </div>
+                <div class="field">
+                    <label for="add-date">Date (optional)</label>
+                    <input id="add-date" type="date">
+                </div>
+                <button type="submit">Add</button>
+            </form>
+            <div class="list-header">
+                <h3>Items This Month</h3>
+                <div class="actions">
+                    <label style="display:flex;align-items:center;gap:6px;color:#9ca3af;">
+                        Month
+                        <input id="add-month" type="month">
+                    </label>
+                    <input id="search-input" type="text" placeholder="Search item name">
+                    <button id="delete-selected" class="danger">Delete Selected</button>
+                </div>
+            </div>
+            <table id="items-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        <th>Name</th>
+                        <th>Latest Price</th>
+                        <th>Quantity (month)</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="right">Grand Total</td>
+                        <td id="add-grand-total">0.00</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <section id="view-update" class="view">
+            <h2>Update Price</h2>
+            <form id="update-form">
+                <div class="field">
+                    <label for="update-name">Item</label>
+                    <input id="update-name" list="items-datalist" placeholder="Choose item" required>
+                    <datalist id="items-datalist"></datalist>
+                </div>
+                <div class="field">
+                    <label for="update-price">New Price</label>
+                    <input id="update-price" type="number" step="0.01" min="0" required>
+                </div>
+                <div class="field">
+                    <label for="update-date">Effective Date</label>
+                    <input id="update-date" type="date">
+                </div>
+                <button type="submit">Save Price</button>
+            </form>
+
+            <h3>Price History</h3>
+            <table id="price-history-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Effective</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="view-sale" class="view">
+            <h2>Record Sale</h2>
+            <form id="sale-form">
+                <div class="field">
+                    <label for="sale-date">Date</label>
+                    <input id="sale-date" type="date" required>
+                </div>
+                <div class="field">
+                    <label for="sale-buyer">Buyer Name</label>
+                    <input id="sale-buyer" type="text" placeholder="e.g. John Doe" required>
+                </div>
+                <div class="field">
+                    <label for="sale-address">Buyer Address</label>
+                    <input id="sale-address" type="text" placeholder="Address" required>
+                </div>
+                <div class="field">
+                    <label for="sale-contact">Contact Number</label>
+                    <input id="sale-contact" type="tel" placeholder="Phone" required>
+                </div>
+                <div class="field">
+                    <label for="sale-item">Product</label>
+                    <input id="sale-item" list="items-datalist" placeholder="Choose item" required>
+                </div>
+                <div class="field">
+                    <label for="sale-price">Price</label>
+                    <input id="sale-price" type="number" step="0.01" min="0" required>
+                </div>
+                <div class="field">
+                    <label for="sale-qty">Quantity</label>
+                    <input id="sale-qty" type="number" step="1" min="1" value="1" required>
+                </div>
+                <div class="field">
+                    <label for="sale-profit">Profit per piece (optional)</label>
+                    <input id="sale-profit" type="number" step="0.01" min="0" placeholder="Profit per unit">
+                </div>
+                <button type="submit">Save Sale</button>
+            </form>
+            <div class="list-header">
+                <h3>Recent Sales</h3>
+                <div class="actions">
+                    <label style="display:flex;align-items:center;gap:6px;color:#9ca3af;">
+                        Month
+                        <input id="sales-month" type="month">
+                    </label>
+                </div>
+            </div>
+            <table id="sales-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Buyer</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                        <th>Product</th>
+                        <th class="right">Price</th>
+                        <th class="right">Qty</th>
+                        <th class="right">Total</th>
+                        <th class="right">Profit</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="view-report" class="view">
+            <h2>Monthly Report</h2>
+            <div class="toolbar">
+                <label>
+                    Month
+                    <input id="report-month" type="month">
+                </label>
+                <button id="refresh-report">Show Report</button>
+                <button id="export-text">Export TXT</button>
+                <button id="print-pdf">Print/PDF</button>
+            </div>
+            <div id="report-output"></div>
+        </section>
+
+        <section id="view-sales-report" class="view">
+            <h2>Sales Report</h2>
+            <div class="toolbar">
+                <label>
+                    Month
+                    <input id="sales-report-month" type="month">
+                </label>
+                <button id="refresh-sales-report">Show Sales</button>
+                <button id="export-sales-text">Export Sales TXT</button>
+                <button id="print-sales-pdf">Print/PDF</button>
+            </div>
+            <div id="sales-report-output"></div>
+        </section>
+
+        <section id="view-yearly" class="view">
+            <h2>Yearly Summary</h2>
+            <div class="toolbar">
+                <label>
+                    Year
+                    <input id="year-input" type="number" min="2000" max="2100">
+                </label>
+                <button id="show-year">Show</button>
+            </div>
+            <div id="yearly-output"></div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <small>Data stored locally in your browser. No server required.</small>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Set default dates
+        (function(){
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth()+1).padStart(2,'0');
+            const dd = String(today.getDate()).padStart(2,'0');
+            const dateStr = `${yyyy}-${mm}-${dd}`;
+            const monthStr = `${yyyy}-${mm}`;
+            const addDate = document.getElementById('add-date');
+            const updDate = document.getElementById('update-date');
+            const repMonth = document.getElementById('report-month');
+            if(addDate) addDate.value = dateStr;
+            if(updDate) updDate.value = dateStr;
+            if(repMonth) repMonth.value = monthStr;
+            const yearInput = document.getElementById('year-input');
+            if(yearInput) yearInput.value = yyyy;
+        })();
+    </script>
+</body>
+</html>
+
+
